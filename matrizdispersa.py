@@ -1,8 +1,8 @@
-
 import commands
+import aravl
 from flask import Flask, request, Response
 class nododisperso(object):
-    """docstring for ClassName"""
+    """docstring for nododisperso; nodo de la matriz"""
     def __init__(self, x,y,dato):
         self.x = x
         self.y = y
@@ -11,6 +11,9 @@ class nododisperso(object):
         self.anterior = None
         self.arriba= None
         self.abajo = None
+        self.arbol = aravl.avl()
+
+
 
 
 class listaHo(object):
@@ -472,14 +475,28 @@ class matriz(object):
 
         archi.close()
         print("gmatri")
-        commands.getoutput('sudo dot -Tpng matri.dot -o matri.png')
+        commands.getoutput('dot -Tpng matri.dot -o matri.png')
+        commands.getoutput('xdg-open matri.png')
+
 
 mat = matriz()
-
 mat.insertar(1,21,"dato1")
 mat.insertar(88,32,"dato2")
 mat.insertar(5,11,"dato3")
 mat.insertar(9,5,"dato4")
+arbol = aravl.avl()
+arbol.insertar('se')
+arbol.insertar('vato')
+arbol.insertar('cuando')
+arbol.insertar('mano')
+arbol.insertar('comida')
+arbol.insertar('pollofrito')
+arbol.insertar('fads')
+arbol.insertar('rdfasd')
+arbol.insertar('juan')
+arbol.insertar('tacos')
+arbol.preorden(arbol.raiz)
+arbol.graficar()
 
 mat.recorrer()
 mat.graficar()

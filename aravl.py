@@ -147,22 +147,83 @@ class avl(object):
 
 		return self.buscar(raiz, dato)
 
+	def eliminar(self, dato):
+
+		self.raiz = self.el(dato, self.raiz)
+		self.raiz = self.balance.equilibrar(raiz)
+
 	def el(self, dato, nodo):
 		
 		if nodo == None:
 
 			return None
+		if nodo.dato == dato:
+
+			return self.juntar(nodo.izquierda, nodo.derecha)
+
 		if nodo.dato > dato:
 
+			nodo.izquierda = self.el(dato, nodo.izquierda)
 
-	
+		else:
+
+			nodo.derecha = self.el(dato, nodo.derecha)
+
+		return nodo
+
+	def juntar(self, izq, der):
+		
+		if izq == None:
+			return der
+
+		if der== None:
+			return izq
+
+		mitad = self.juntar(izq.derecha, der.izquierda)
+		izq.derecha = mitad
+		der.izquierda = izq
+		return der 
+
+	def graficar(self):
+		archi= open('avl.dot','w')
+		archi.write('digraph AVL{ \n')
+		archi.write('node[shape=record]\n')
+		self.ghojas(archi, self.raiz)
+		self.enlazes(archi, self.raiz)
+		archi.write('} \n')
+		archi.close()
+		print 'se genero el.dot dela rbol'
+		commands.getoutput('dot -Tpng avl.dot -o avl.png')
+		commands.getoutput('xdg-open avl.png')
+
+	def ghojas(self, archi, raiz):
+		if raiz != None:
+			archi.write(str(raiz.dato)+'[label="<f0>|<f1> '+str(raiz.dato)+'  |<f2>"]; \n')
+			self.ghojas(archi, raiz.izquierda)
+			self.ghojas(archi, raiz.derecha)
+
+
+	def enlazes(self, archi, raiz):
+		if raiz != None:
+			if raiz.izquierda!= None:
+				archi.write(str(raiz.dato)+':f0->'+str(raiz.izquierda.dato)+' \n')
+			if raiz.derecha !=None:
+				archi.write(str(raiz.dato)+ ':f2->'+str(raiz.derecha.dato)+ '\n')
+			self.enlazes(archi, raiz.izquierda)
+			self.enlazes(archi, raiz.derecha)
+
+
+       #poner un contador para que no se repitan las hojas?
+
+
+
 
 		
 
 
 
 
-
+'''
 arbol = avl()
 arbol.insertar('hola')
 arbol.insertar('vato')
@@ -172,8 +233,10 @@ arbol.insertar('comida')
 arbol.insertar('pollofrito')
 arbol.insertar('china')
 arbol.insertar('arroz')
+arbol.insertar('juan')
 arbol.insertar('tacos')
 arbol.preorden(arbol.raiz)
+arbol.graficar()'''
 
 
 
