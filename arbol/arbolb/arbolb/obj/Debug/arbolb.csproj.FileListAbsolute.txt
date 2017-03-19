@@ -1,0 +1,8 @@
+C:\Users\Nicte\Desktop\arbol\arbolb\arbolb\bin\Debug\arbolb.exe
+C:\Users\Nicte\Desktop\arbol\arbolb\arbolb\bin\Debug\arbolb.pdb
+C:\Users\Nicte\Desktop\arbol\arbolb\arbolb\obj\Debug\arbolb.csprojResolveAssemblyReference.cache
+C:\Users\Nicte\Desktop\arbol\arbolb\arbolb\obj\Debug\arbolb.Properties.Resources.resources
+C:\Users\Nicte\Desktop\arbol\arbolb\arbolb\obj\Debug\arbolb.csproj.GenerateResource.Cache
+C:\Users\Nicte\Desktop\arbol\arbolb\arbolb\obj\Debug\arbolb.exe
+C:\Users\Nicte\Desktop\arbol\arbolb\arbolb\obj\Debug\arbolb.pdb
+C:\Users\Nicte\Desktop\arbol\arbolb\arbolb\obj\Debug\arbolb.Form1.resources
