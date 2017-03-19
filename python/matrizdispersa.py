@@ -542,8 +542,19 @@ class matriz(object):
 
         return str(superstring.rstrip(','))
 
+
+
         #x es el las empresas
         #y los departamentos
+
+    def verificarlog(self, usuario, contrasena, empresa , departamentos): #verifica si el log es correcto
+
+        nodo = self.buscarpornombre(usuario) #si existe el nodo con ese id verifico los demas datos
+        if nodo!= None:
+            if nodo.contrasena== contrasena and nodo.x == empresa and nodo.y== departamentos:
+                return 'true'
+
+        return 'false'
 
 
 
@@ -554,10 +565,9 @@ class matriz(object):
 
 mat = matriz()
 #x,y, nombre, nombreusuario, contrasena
-mat.insertar(1,21,"dato1", "queso", "2")
-mat.insertar(88,32,"dato2","bato","3")
-mat.insertar(5,11,"dato3","loco","3")
-mat.insertar(9,5,"dato4","queso","3")
+mat.insertar('conta','meso',"dato1", "queso", "2")
+mat.insertar('telefono','banrural','nombre','id','20')
+mat.insertar('banco','claro',"dato4","queso","3")
 
 mat.insertaractivos('queso',"nuebo",'nombre', 'descripcion1')
 mat.insertaractivos('queso',"maje",'nombre', 'descripcion2')
@@ -571,7 +581,9 @@ mat.insertaractivos('queso',"orga1",'nombre', 'descripcion8')
 mat.insertaractivos('queso',"orga10",'nombre', 'descripcion9')
 mat.insertaractivos('queso',"orga3",'nombre', 'descripcion10')
 mat.modificaractivo('queso','orga','esta es una nueva describcion')
-print mat.obtenerdatosdellog()
+mat.graficar()
+
+print str(mat.verificarlog('queso','3','banco','claro'))
 
 
 
