@@ -1,0 +1,58 @@
+digraph matriz {
+rankdir=UD;
+node [shape=box]; 
+ 
+{ 
+rank=min; 
+m[label= "matriz"]; 
+nodex1[label="1",rankdir=LR]; 
+nodex5[label="5",rankdir=LR]; 
+nodex9[label="9",rankdir=LR]; 
+nodex88[label="88",rankdir=LR]; 
+
+}
+
+{
+rank=same; 
+nodey5[label="5"]; 
+noded9g5dato4[label= "dato4"]; 
+
+}
+{
+rank=same; 
+nodey11[label="11"]; 
+noded5g11dato3[label= "dato3"]; 
+
+}
+{
+rank=same; 
+nodey21[label="21"]; 
+noded1g21dato1[label= "dato1"]; 
+
+}
+{
+rank=same; 
+nodey32[label="32"]; 
+noded88g32dato2[label= "dato2"]; 
+
+}
+m->nodex1->nodex5->nodex9->nodex88; 
+nodex88->nodex9->nodex5->nodex1;
+m->nodey5;
+nodey5->nodey11[rankdir=UD dir="both"]; 
+nodey11->nodey21[rankdir=UD dir="both"]; 
+nodey21->nodey32[rankdir=UD dir="both"]; 
+nodex1->noded1g21dato1[dir="both"];
+nodex5->noded5g11dato3[dir="both"];
+nodex9->noded9g5dato4[dir="both"];
+nodex88->noded88g32dato2[dir="both"];
+nodey5->noded9g5dato4[constraint=false]; 
+noded9g5dato4->nodey5[constraint=false]; 
+nodey11->noded5g11dato3[constraint=false]; 
+noded5g11dato3->nodey11[constraint=false]; 
+nodey21->noded1g21dato1[constraint=false]; 
+noded1g21dato1->nodey21[constraint=false]; 
+nodey32->noded88g32dato2[constraint=false]; 
+noded88g32dato2->nodey32[constraint=false]; 
+
+}
