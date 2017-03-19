@@ -523,6 +523,31 @@ class matriz(object):
 
         nodo.arbol.graficar()
 
+    def obtenerdatosdellog(self): #obtiene los datos para el inicio de secion
+
+        nodoyy = self.ladoy.primero
+        superstring=str('')
+
+        while nodoyy != None:
+            temporal = nodoyy.listah.primero
+            
+            while temporal != None:
+
+                superstring=str(superstring)+str(temporal.nombreusuario)+','+str(temporal.contrasena)+','+str(temporal.x)+','+str(temporal.y)+','
+                temporal = temporal.siguiente
+                
+            nodoyy = nodoyy.abajo
+
+   
+
+        return str(superstring.rstrip(','))
+
+        #x es el las empresas
+        #y los departamentos
+
+
+
+
 
 
 
@@ -546,6 +571,7 @@ mat.insertaractivos('queso',"orga1",'nombre', 'descripcion8')
 mat.insertaractivos('queso',"orga10",'nombre', 'descripcion9')
 mat.insertaractivos('queso',"orga3",'nombre', 'descripcion10')
 mat.modificaractivo('queso','orga','esta es una nueva describcion')
+print mat.obtenerdatosdellog()
 
 
 
