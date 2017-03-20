@@ -20,9 +20,9 @@ class rotaciones (object):
 		#rotacion derecha derecha
 		n.derecha = n1.izquierda
 		n1.izquierda = n
-		n = n1 
+		n = n1
 		print 'rotacion dereecha derecha'
-		return n 
+		return n
 
 	def izqizq(self, n, n1):
 		#rotacion izquierda izquierda
@@ -30,7 +30,7 @@ class rotaciones (object):
 		n1.derecha = n
 		n = n1
 		print 'rotacion iz iz'
-		return n 
+		return n
 
 	def rderizq(self, n, n1):
 		#rotacion derecha izquierda
@@ -41,7 +41,7 @@ class rotaciones (object):
 		n2.derecha = n1
 		n = n2
 		print 'rotacion dereecha izquierda'
-		return n 
+		return n
 
 	def rizqder(self, n, n1):
 		#rotacion izquierda derecha
@@ -59,7 +59,7 @@ class rotaciones (object):
 
 
 	def altura(self, raiz):
-		
+
 		if raiz == None:
 
 			return int(0)
@@ -68,7 +68,7 @@ class rotaciones (object):
 			return (int (1) + int(max(self.altura(raiz.izquierda), self.altura(raiz.derecha))))
 
 	def equilibrar(self , raiz):
-		
+
 		if raiz != None:
 			raiz.izquierda = self.equilibrar(raiz.izquierda)
 			raiz.derecha = self.equilibrar (raiz.derecha)
@@ -114,15 +114,13 @@ class avl(object):
 		self.raiz = None
 		self.balance = rotaciones('s')
 
-
-
 	def insertar(self, idd, nombre, descripcion):
 		hijo = hoja(idd, nombre , descripcion)
 		self.raiz = self.add(hijo, self.raiz)
 		self.raiz = self.balance.equilibrar(self.raiz)
 
 	def add(self,hijo, raiz):
-		
+
 		if raiz == None:
 			raiz = hijo
 			return raiz
@@ -146,14 +144,11 @@ class avl(object):
 
 	def buscar(self,raiz,idd):
 		if raiz == None:
-
 			return None
 		elif raiz.idd == idd:
 			return raiz
-
 		elif raiz.idd > idd:
 			return self.buscar(raiz.izquierda,idd)
-
 		else:
 			return self.buscar(raiz.derecha , idd)
 
@@ -168,7 +163,7 @@ class avl(object):
 		self.raiz = self.balance.equilibrar(self.raiz)
 
 	def el(self, idd, nodo):
-		
+
 		if nodo == None:
 
 			return None
@@ -187,7 +182,7 @@ class avl(object):
 		return nodo
 
 	def juntar(self, izq, der):
-		
+
 		if izq == None:
 			return der
 
@@ -197,7 +192,7 @@ class avl(object):
 		mitad = self.juntar(izq.derecha, der.izquierda)
 		izq.derecha = mitad
 		der.izquierda = izq
-		return der 
+		return der
 
 	def graficar(self):
 		archi= open('avl.dot','w')
@@ -226,15 +221,7 @@ class avl(object):
 				archi.write(str(raiz.idd)+ ':f2->'+str(raiz.derecha.idd)+ '\n')
 			self.enlazes(archi, raiz.izquierda)
 			self.enlazes(archi, raiz.derecha)
-
-
        #poner un contador para que no se repitan las hojas?
-
-
-
-
-		
-
 
 
 
@@ -253,22 +240,3 @@ arbol.insertar('tacos','nombre', 'descripcion')
 arbol.preorden(arbol.raiz)
 arbol.graficar()
 '''
-
-
-
-		
-		
-
-
-
-
-
-
-
-
-
-
-
-
-		
-

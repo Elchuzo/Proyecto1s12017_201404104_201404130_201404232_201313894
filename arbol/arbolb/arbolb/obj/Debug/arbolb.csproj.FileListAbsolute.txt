@@ -6,3 +6,5 @@ C:\Users\Nicte\Desktop\arbol\arbolb\arbolb\obj\Debug\arbolb.csproj.GenerateResou
 C:\Users\Nicte\Desktop\arbol\arbolb\arbolb\obj\Debug\arbolb.exe
 C:\Users\Nicte\Desktop\arbol\arbolb\arbolb\obj\Debug\arbolb.pdb
 C:\Users\Nicte\Desktop\arbol\arbolb\arbolb\obj\Debug\arbolb.Form1.resources
+C:\Users\Oscar\Desktop\Proyecto1\Proyecto1s12017_201404104_201404130_201404232_201313894\arbol\arbolb\arbolb\obj\Debug\arbolb.exe
+C:\Users\Oscar\Desktop\Proyecto1\Proyecto1s12017_201404104_201404130_201404232_201313894\arbol\arbolb\arbolb\obj\Debug\arbolb.pdb
