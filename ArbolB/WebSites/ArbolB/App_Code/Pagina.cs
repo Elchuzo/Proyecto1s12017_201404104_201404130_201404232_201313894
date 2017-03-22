@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+/// <summary>
+/// Summary description for Pagina
+/// </summary>
+public class Pagina
+{
+    Pagina[] ramas = new Pagina[5];
+    Nodo[] claves = new Nodo[4];
+    int cuenta = 0;
+
+    public Pagina(Nodo clave)
+    {
+        claves[0] = clave;
+    }
+
+    public Pagina() {
+    }
+}
