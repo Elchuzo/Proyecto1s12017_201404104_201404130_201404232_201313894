@@ -14,9 +14,48 @@ public class Pagina
 
     public Pagina(Nodo clave)
     {
-        claves[0] = clave;
+        Claves[0] = clave;
     }
 
     public Pagina() {
+    }
+
+    public Pagina[] Ramas
+    {
+        get
+        {
+            return ramas;
+        }
+
+        set
+        {
+            ramas = value;
+        }
+    }
+
+    public Nodo[] Claves
+    {
+        get
+        {
+            return claves;
+        }
+
+        set
+        {
+            claves = value;
+        }
+    }
+
+    public int Cuenta
+    {
+        get
+        {
+            return cuenta;
+        }
+
+        set
+        {
+            cuenta = value;
+        }
     }
 }
