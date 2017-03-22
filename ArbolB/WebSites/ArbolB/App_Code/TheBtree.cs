@@ -156,14 +156,14 @@ public class TheBtree
             esta = false;
         }
         if (!esta) {
-            //No se encontro el elemento
+            Console.Write("No se encontro el elemento");
         }else
         {
             if (raiz.Cuenta == 0) {
                 raiz = raiz.Ramas[0];
             }
             pag = raiz;
-           //Eliminacion completa
+            Console.Write("Eliminacion completa");
         }
     }
 
@@ -282,4 +282,42 @@ public class TheBtree
         raiz.Cuenta--;
     }
 
-}
+    public void ListarCreciente(Pagina actual) {
+       
+    }
+
+    public void Graficar() {
+        System.IO.StreamWriter archivo = null;
+        String contenido;
+        try
+        {
+            archivo = new System.IO.StreamWriter("C:\\Users\\Dinora\\Desktop\\arbolB.txt");
+
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Error al escribir en el archivo arbolB.txt" +e);
+        }
+        finally {
+            try
+            {
+                if (null != archivo) {
+                    archivo.Close();
+                }
+            }
+            catch (Exception e2) {
+                Console.Write("Error al cerrrar el archivo arbolB.txt" + e2);
+            }
+        }
+        try
+        {
+            System.Diagnostics.Process.Start("C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe -Tpng C:\\Users\\Dinora\\Desktop\\arbolB.txt C:\\Users\\Dinora\\Desktop\\arbolB.txt -o C:\\Users\\Dinora\\Desktop\\Btree.png");
+        }
+        catch (Exception ex) {
+            Console.Write("Error al generar la imagen para el arbol" + ex);
+        }
+    }
+
+
+} 
