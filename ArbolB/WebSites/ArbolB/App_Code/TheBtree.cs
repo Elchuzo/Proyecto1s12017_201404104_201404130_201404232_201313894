@@ -8,12 +8,12 @@ using System.Web;
 /// </summary>
 public class TheBtree
 {
-    Pagina pag;     //p
+    Pagina pag;     
     Pagina derecha = new Pagina();
     Pagina izquierda = new Pagina();
 
-    Nodo aux;  //X
-    Pagina page;   //Xr
+    Nodo aux;  
+    Pagina page;   
     bool esta = false;
     bool emp = false;
 
@@ -286,13 +286,13 @@ public class TheBtree
        
     }
 
-    public void Graficar() {
+    public void Graficar(Pagina raiz) {
         System.IO.StreamWriter archivo = null;
-        String contenido;
+       
         try
         {
             archivo = new System.IO.StreamWriter("C:\\Users\\Dinora\\Desktop\\arbolB.txt");
-
+            archivo.WriteLine(CodigoGraphviz(raiz));
 
         }
         catch (Exception e)
@@ -319,5 +319,54 @@ public class TheBtree
         }
     }
 
+    public String CodigoGraphviz(Pagina actual)
+    {
+        return "digraph ArbolB{\n"+
+                "dpi=500 rankdir=TB;\n"+
+                "node[shape=record,style=filled,fillcolor=seashell2];\n"+
+                CodigoInterno(actual)+
+                "}\n";
 
+    }
+
+    public String CodigoInterno(Pagina actual) {
+        String line = "";
+        line += " \"nodo"+actual.Claves[0].Num+"\" ";
+        line += " [label=\" <C0>";
+
+        for (int i = 0; i< actual.Cuenta; i++) {
+            line += "|" + actual.Claves[i + 1] + "|<C" + (i + 1) + ">";
+        }
+        line += "  \"]; ";
+
+        if (actual.Ramas[0] != null)
+        {
+            CodigoInterno(actual.Ramas[0]);
+            line += "\"nodo" + actual.Claves + "\":C" + 0 + "-> \"nodo" + actual.Ramas[0].Claves + "\" ;";
+        }
+
+        if (actual.Ramas[1] != null)
+        {
+            CodigoInterno(actual.Ramas[1]);
+            line += "\"nodo" + actual.Claves + "\":C" + 1 + "-> \"nodo" + actual.Ramas[1].Claves + "\" ;";
+        }
+
+        if (actual.Ramas[2] != null)
+        {
+            CodigoInterno(actual.Ramas[2]);
+            line +="\"nodo" + actual.Claves + "\":C" + 2 + "-> \"nodo" + actual.Ramas[2].Claves + "\" ;";
+        }
+        if (actual.Ramas[3] != null)
+        {
+            CodigoInterno(actual.Ramas[3]);
+            line += "\"nodo" + actual.Claves + "\":C" + 3 + "-> \"nodo" + actual.Ramas[3].Claves + "\" ;";
+        }
+        if (actual.Ramas[4] != null)
+        {
+            CodigoInterno(actual.Ramas[4]);
+            line += "\"nodo" + actual.Claves + "\":C" + 4 + "-> \"nodo" + actual.Ramas[4].Claves + "\" ;";
+        }
+
+        return line;
+    }
 } 

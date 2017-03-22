@@ -11,6 +11,19 @@ public class Nodo
     int num;
     public Nodo(int valor)
     {
-        num = valor;
+        Num = valor;
+    }
+
+    public int Num
+    {
+        get
+        {
+            return num;
+        }
+
+        set
+        {
+            num = value;
+        }
     }
 }
