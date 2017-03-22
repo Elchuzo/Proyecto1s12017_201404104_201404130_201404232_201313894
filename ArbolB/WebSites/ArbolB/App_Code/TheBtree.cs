@@ -8,12 +8,12 @@ using System.Web;
 /// </summary>
 public class TheBtree
 {
-    Pagina pag;
+    Pagina pag;     //p
     Pagina derecha = new Pagina();
     Pagina izquierda = new Pagina();
 
-    Nodo aux;
-    Pagina page;
+    Nodo aux;  //X
+    Pagina page;   //Xr
     bool esta = false;
     bool emp = false;
 
@@ -22,6 +22,7 @@ public class TheBtree
         
     }
 
+    //INSERTANDO
     public bool Vacio(Pagina raiz) {
         return (raiz == null || raiz.Cuenta == 0);
     }
@@ -134,4 +135,151 @@ public class TheBtree
         page = Posmdna;
 
     }
+    //ELIMINANDO
+    public void Eliminando(Nodo clave) {
+        if (Vacio(pag))
+        {
+            //No hay elementos en la lista
+        }
+        else {
+            Eliminar(pag, clave);
+        }
+    }
+
+    public void Eliminar(Pagina raiz, Nodo clave) {
+        try
+        {
+            EliminarRegistro(raiz, clave);
+        }
+        catch (Exception e)
+        {
+            esta = false;
+        }
+        if (!esta) {
+            //No se encontro el elemento
+        }else
+        {
+            if (raiz.Cuenta == 0) {
+                raiz = raiz.Ramas[0];
+            }
+            pag = raiz;
+           //Eliminacion completa
+        }
+    }
+
+    public void EliminarRegistro(Pagina raiz, Nodo clave) {
+        int pos = 0;
+        if (Vacio(raiz))
+            esta = false;
+        else
+        {
+            pos = BuscarNodo(raiz, clave);
+            if (esta)
+            {
+                if (Vacio(raiz.Ramas[pos - 1]))
+                    Quitar(raiz, pos);
+                else
+                {
+                    Sucesor(raiz, pos);
+                    EliminarRegistro(raiz.Ramas[pos], raiz.Claves[pos - 1]);
+                }
+            }
+            else
+            {
+                EliminarRegistro(raiz.Ramas[pos], clave);
+                if ((raiz.Ramas[pos] != null) && (raiz.Ramas[pos].Cuenta < 2))
+                    Restablecer(raiz, pos);
+            }
+        }
+
+
+    }
+
+    public void Sucesor(Pagina raiz, int k) {
+        Pagina aux = raiz.Ramas[k];
+        while (!Vacio(aux.Ramas[0]))
+            aux = aux.Ramas[0];
+        raiz.Claves[k - 1] = aux.Claves[0];
+    }
+
+    public void Restablecer(Pagina raiz, int posicion) {
+        if (posicion > 0)
+        {
+            if (raiz.Ramas[posicion - 1].Cuenta > 2)
+                MoverDerecha(raiz, posicion);
+            else
+                Combina(raiz, posicion);
+        }
+        else
+        {
+            if (raiz.Ramas[1].Cuenta > 2)
+                MoverIzquierda(raiz, 1);
+            else
+                Combina(raiz, 1);
+        }
+    }
+
+    public void MoverDerecha(Pagina raiz, int posicion) {
+        int i = raiz.Ramas[posicion].Cuenta;
+        while (i!=0) {
+            raiz.Ramas[posicion].Claves[i] = raiz.Ramas[posicion].Claves[i -1];
+            raiz.Ramas[posicion].Ramas[i + 1] = raiz.Ramas[posicion].Ramas[i];
+            --i;
+        }
+        raiz.Ramas[posicion].Cuenta++;
+        raiz.Ramas[posicion].Ramas[1] = raiz.Ramas[posicion].Ramas[0];
+        raiz.Ramas[posicion].Claves[0] = raiz.Claves[posicion - 1];
+        raiz.Claves[posicion - 1] = raiz.Ramas[posicion - 1].Claves[raiz.Ramas[posicion - 1].Cuenta - 1];
+        raiz.Ramas[posicion].Ramas[0] = raiz.Ramas[posicion - 1].Ramas[raiz.Ramas[posicion - 1].Cuenta];
+        raiz.Ramas[posicion - 1].Cuenta--;
+    }
+
+    public void MoverIzquierda(Pagina raiz, int posicion) {
+        int i;
+        raiz.Ramas[posicion - 1].Cuenta++;
+        raiz.Ramas[posicion - 1].Claves[raiz.Ramas[posicion - 1].Cuenta - 1] = raiz.Claves[posicion - 1];
+        raiz.Ramas[posicion - 1].Ramas[raiz.Ramas[posicion - 1].Cuenta] = raiz.Ramas[posicion].Ramas[0];
+        raiz.Claves[posicion - 1] = raiz.Ramas[posicion].Claves[0];
+        raiz.Ramas[posicion].Ramas[0] = raiz.Ramas[posicion].Ramas[1];
+        raiz.Ramas[posicion].Cuenta--;
+        i = 1;
+        while (i != raiz.Ramas[posicion].Cuenta + 1)
+        {
+            raiz.Ramas[posicion].Claves[i - 1] = raiz.Ramas[posicion].Claves[i];
+            raiz.Ramas[posicion].Ramas[i] = raiz.Ramas[posicion].Ramas[i + 1];
+            i++;
+        }
+    }
+
+
+    public void Combina(Pagina raiz, int posicion) {
+        int j;
+        derecha = raiz.Ramas[posicion];
+        izquierda = raiz.Ramas[posicion - 1];
+        izquierda.Cuenta++;
+        izquierda.Claves[izquierda.Cuenta - 1] = raiz.Claves[posicion - 1];
+        izquierda.Ramas[izquierda.Cuenta] = derecha.Ramas[0];
+        j = 1;
+        while (j != derecha.Cuenta + 1)
+        {
+            izquierda.Cuenta++;
+            izquierda.Claves[izquierda.Cuenta - 1] = derecha.Claves[j - 1];
+            izquierda.Ramas[izquierda.Cuenta] = derecha.Ramas[j];
+            j++;
+        }
+        Quitar(raiz, posicion);
+
+    }
+
+    public void Quitar(Pagina raiz, int posicion) {
+        int i = posicion + 1;
+        while (i != raiz.Cuenta + 1)
+        {
+            raiz.Claves[i - 2] = raiz.Claves[i - 1];
+            raiz.Ramas[i - 1] = raiz.Ramas[i];
+            i++;
+        }
+        raiz.Cuenta--;
+    }
+
 }
