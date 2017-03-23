@@ -139,6 +139,7 @@ class avl(object):
 
 		if raiz != None:
 			print str(raiz.idd)
+			a = a + raiz.idd
 			self.preorden(raiz.izquierda)
 			self.preorden(raiz.derecha)
 
@@ -225,7 +226,7 @@ class avl(object):
 
 
 
-'''
+
 arbol = avl()
 arbol.insertar('hola','nombre', 'descripcion')
 arbol.insertar('vato','nombre', 'descripcion')
@@ -239,4 +240,3 @@ arbol.insertar('juan','nombre', 'descripcion')
 arbol.insertar('tacos','nombre', 'descripcion')
 arbol.preorden(arbol.raiz)
 arbol.graficar()
-'''
