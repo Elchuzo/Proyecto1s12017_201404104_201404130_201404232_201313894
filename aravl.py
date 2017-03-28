@@ -18,15 +18,15 @@ class rotaciones (object):
 		#rotacion derecha derecha
 		n.derecha = n1.izquierda
 		n1.izquierda = n
-		n = n1 
-		return n 
+		n = n1
+		return n
 
 	def izqizq(self, n, n1):
 		#rotacion izquierda izquierda
 		n.izquierda = n1.derecha
 		n1.derecha = n
 		n = n1
-		return n 
+		return n
 
 	def rderizq(self, n, n1):
 		#rotacion derecha izquierda
@@ -36,7 +36,7 @@ class rotaciones (object):
 		n1.izquierda = n2.derecha
 		n2.derecha = n1
 		n = n2
-		return n 
+		return n
 
 	def rizqder(self, n, n1):
 		#rotacion izquierda derecha
@@ -53,7 +53,7 @@ class rotaciones (object):
 
 
 	def altura(self, raiz):
-		
+
 		if raiz == None:
 
 			return int(0)
@@ -62,7 +62,7 @@ class rotaciones (object):
 			return int (1) + int(max(self.altura(raiz.izquierda), self.altura(raiz.derecha)))
 
 	def equilibrar(self , raiz):
-		
+
 		if raiz == None:
 			raiz.izquierda = self.equilibrar(raiz.izquierda)
 			raiz.derecha = self.equilibrar (raiz.derecha)
@@ -108,7 +108,7 @@ class avl(object):
 		self.raiz = self.balance.equilibrar(self.raiz)
 
 	def add(self,hijo, raiz):
-		
+
 		if raiz == None:
 			raiz = hijo
 			return raiz
@@ -127,8 +127,10 @@ class avl(object):
 
 		if raiz != None:
 			print str(raiz.dato)
+			a = a + raiz.dato
 			self.preorden(raiz.izquierda)
 			self.preorden(raiz.derecha)
+		return a
 
 	def buscar(self,raiz,dato):
 		if raiz == None:
@@ -153,7 +155,7 @@ class avl(object):
 		self.raiz = self.balance.equilibrar(raiz)
 
 	def el(self, dato, nodo):
-		
+
 		if nodo == None:
 
 			return None
@@ -172,7 +174,7 @@ class avl(object):
 		return nodo
 
 	def juntar(self, izq, der):
-		
+
 		if izq == None:
 			return der
 
@@ -182,7 +184,7 @@ class avl(object):
 		mitad = self.juntar(izq.derecha, der.izquierda)
 		izq.derecha = mitad
 		der.izquierda = izq
-		return der 
+		return der
 
 	def graficar(self):
 		archi= open('avl.dot','w')
@@ -192,7 +194,7 @@ class avl(object):
 		self.enlazes(archi, self.raiz)
 		archi.write('} \n')
 		archi.close()
-		print 'se genero el.dot dela rbol'
+		print 'se genero el.dot del arbol'
 		commands.getoutput('dot -Tpng avl.dot -o avl.png')
 		commands.getoutput('xdg-open avl.png')
 
@@ -212,15 +214,7 @@ class avl(object):
 			self.enlazes(archi, raiz.izquierda)
 			self.enlazes(archi, raiz.derecha)
 
-
        #poner un contador para que no se repitan las hojas?
-
-
-
-
-		
-
-
 
 
 '''
@@ -237,23 +231,3 @@ arbol.insertar('juan')
 arbol.insertar('tacos')
 arbol.preorden(arbol.raiz)
 arbol.graficar()'''
-
-
-
-
-		
-		
-
-
-
-
-
-
-
-
-
-
-
-
-		
-
