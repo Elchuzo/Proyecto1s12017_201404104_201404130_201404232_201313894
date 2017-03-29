@@ -474,6 +474,75 @@ class matriz(object):
         commands.getoutput('xdg-open matri.png')
 
 
+      def buscarpornombre(self, nombreusuario): #busca los usuarios por su nombre
+          nodoyy = self.ladoy.primero
+
+          while nodoyy != None:
+              temporal = nodoyy.listah.primero
+
+              while temporal != None:
+                  if temporal.nombreusuario == nombreusuario:
+                      return temporal
+                  else:
+                      return None
+                  temporal = temporal.siguiente
+
+              nodoyy = nodoyy.abajo
+
+      def insertaractivos(self, nombreusuario, idactivo, nombreactivo, descripactivo): #insertar los activos en el avl
+
+         nodo = self.buscarpornombre (nombreusuario)
+         if nodo!= None:
+             nodo.arbol.insertar(idactivo, nombreusuario, descripactivo)
+             #nodo.arbol.graficar()
+
+     def eliminaractivo(self, nombreusuario, idactivo): #elimina los activos del avl
+         nodo = self.buscarpornombre(nombreusuario)
+         if nodo!= None:
+             nodo.arbol.eliminar(idactivo)
+
+             nodo.arbol.graficar()
+
+     def modificaractivo(self, nombreusuario, idactivo, nuevadescripcion): #modifica la descripcion de los activos del avl
+         nodo = self.buscarpornombre(nombreusuario)
+         if nodo!= None:
+             activo = nodo.arbol.obtener(nodo.arbol.raiz,idactivo)
+
+             if activo != None:
+                 activo.descripcion = nuevadescripcion
+
+         nodo.arbol.graficar()
+
+     def obtenerdatosdellog(self): #obtiene los datos para el inicio de secion
+
+         nodoyy = self.ladoy.primero
+         superstring=str('')
+
+          while nodoyy != None:
+              temporal = nodoyy.listah.primero
+
+              while temporal != None:
+
+                  superstring=str(superstring)+str(temporal.nombreusuario)+','+str(temporal.contrasena)+','+str(temporal.x)+','+str(temporal.y)+','
+                  temporal = temporal.siguiente
+
+              nodoyy = nodoyy.abajo
+
+
+          return str(superstring.rstrip(','))
+
+         #x es el las empresas
+         #y los departamentos
+
+     def verificarlog(self, usuario, contrasena, empresa , departamentos): #verifica si el log es correcto
+
+         nodo = self.buscarpornombre(usuario) #si existe el nodo con ese id verifico los demas datos
+         if nodo!= None:
+             if nodo.contrasena== contrasena and nodo.x == empresa and nodo.y== departamentos:
+                 return 'true'
+
+         return 'false'
+
 
 mat = matriz()
 mat.insertar(1,21,"dato1")
@@ -532,5 +601,7 @@ def eliminar():
 @app.route('/usuario/operaciones/activos',methods=['POST']) #Metodo para obtener los activos a mostrar en el combobox
 def activos():
     usuario = str.request.form['nickname']
-
+    obj = mat.buscarpornombre(usuario)
+    cadena = obj.arbol.preorden
+    return cadena
     #operacion = str(request.form['operacion'])

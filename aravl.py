@@ -127,10 +127,10 @@ class avl(object):
 
 		if raiz != None:
 			print str(raiz.dato)
-			a = a + raiz.dato
+			a = a + raiz.dato + ","
 			self.preorden(raiz.izquierda)
 			self.preorden(raiz.derecha)
-		return a
+		return a.rstrip(",")
 
 	def buscar(self,raiz,dato):
 		if raiz == None:
