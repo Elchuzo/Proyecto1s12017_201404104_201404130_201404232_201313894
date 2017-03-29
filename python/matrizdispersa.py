@@ -588,7 +588,7 @@ def iniciar():
         else:
             print("else2")
             return "datos invalidos"
-    
+    mat.graficar()
 @app.route('/usuario/operaciones/aniadir',methods=['POST']) #Metodo para añadir activos
 def aniadir():
     usuario = str.request.form['nickname']
