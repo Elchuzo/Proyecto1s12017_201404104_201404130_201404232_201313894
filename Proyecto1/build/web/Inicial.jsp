@@ -26,33 +26,27 @@
                 <hr>
             </div>
         </div>
-        <form action="Inicial.jsp">
-            <% 
-                if(false)
-            {
-                
-            }
-                %>
+        <form action="login.jsp">
         <div class="row">
             <div class="col-sm-9">
                 <div class="row form-group">
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="Usuario" name="Usuario" placeholder="Usuario" value="${usuario}">
+                        <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario">
                     </div>
                 </div>
                 <div class="row form-group">
                     <div class="col-sm-6">
-                        <input type="password" class="form-control" id="Contraseña" name="Contraseña" placeholder="Contraseña">
+                        <input type="text" class="form-control" id="contrasena" name="contrasena" placeholder="Contraseña">
                     </div>
                 </div>
                 <div class="row form-group">
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="Empresa" name="Empresa" placeholder="Empresa">
+                        <input type="text" class="form-control" id="empresa" name="empresa" placeholder="Empresa">
                     </div>
                 </div>
                  <div class="row form-group">
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="Departamento" name="Departamento" placeholder="Departamento">
+                        <input type="text" class="form-control" id="departamento" name="departamento" placeholder="Departamento">
                     </div>
                 </div>
                 <div class="row form-group">

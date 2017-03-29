@@ -16,6 +16,11 @@ import java.util.List;
 import java.util.logging.Level;
 
 public class Conexion {
+    
+    public Conexion()
+    {
+        
+    }
     public static OkHttpClient webClient = new OkHttpClient();
 
     public String getActivos() throws FileNotFoundException, IOException {
@@ -24,28 +29,37 @@ public class Conexion {
                 .add("dato", nombre)
                 .add("dato2", "4")
                 .build();
-        String r = getString("/usuario/operaciones/activos", formBody);
+        String r = getString("usuario/operaciones/activos", formBody);
         CSVReader lector = new CSVReader(new FileReader(r));
         List valores = lector.readAll();
         return null; //cambiar
     }
     
-    public boolean logUsuario(String nickname, String contraseña,String nombre, String empresa) throws FileNotFoundException, IOException {
+    public boolean logUsuario(String nickname, String contrasena,String empresa, String departamento) throws FileNotFoundException, IOException {
+         RequestBody formBody = new FormEncodingBuilder()
+                .add("nickname", nickname)
+                .add("contrasena",contrasena)
+                .add("empresa",empresa)
+                .add("departamento",departamento)
+                .add("operacion","crear")
+                .build();
+        String r = getString("usuario/login", formBody);
+        System.out.println(r);
+        return r.equals("login correcto");
+    }
+    
+    public boolean crearUsuario(String nickname, String contrasena,String nombre, String empresa,String departamento) throws FileNotFoundException, IOException {
         RequestBody formBody = new FormEncodingBuilder()
                 .add("nickname", nickname)
-                .add("contraseña",contraseña)
+                .add("contrasena",contrasena)
                 .add("nombre",nombre)
                 .add("empresa",empresa)
+                .add("departamento",departamento)
+                .add("operacion","crear")
                 .build();
-        String r = getString("/usuario/login", formBody);
-        if (r.equals("login correcto"))
-        {
-         return true;   
-        }
-        else
-        {
-         return false;
-        }
+        String r = getString("usuario/login", formBody);
+        System.out.println(r);
+        return r.equals("usuario creado");        
     }
  
      public static String getString(String metodo, RequestBody formBody) {

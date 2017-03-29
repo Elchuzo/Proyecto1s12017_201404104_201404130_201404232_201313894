@@ -5,9 +5,11 @@
         <group>
             <file>file:/C:/Users/Oscar/Documents/NetBeansProjects/Proyecto1/web/Inicial.jsp</file>
             <file>file:/C:/Users/Oscar/Documents/NetBeansProjects/Proyecto1/web/login.jsp</file>
+            <file>file:/C:/Users/Oscar/Documents/NetBeansProjects/Proyecto1/web/exito.jsp</file>
             <file>file:/C:/Users/Oscar/Documents/NetBeansProjects/Proyecto1/src/java/Paquete/Conexion.java</file>
             <file>file:/C:/Users/Oscar/Documents/NetBeansProjects/Proyecto1/web/EliminarActivos.jsp</file>
             <file>file:/C:/Users/Oscar/Documents/NetBeansProjects/Proyecto1/web/AgregarActivos.jsp</file>
+            <file>file:/C:/Users/Oscar/Documents/NetBeansProjects/Proyecto1/web/reg.jsp</file>
             <file>file:/C:/Users/Oscar/Documents/NetBeansProjects/Proyecto1/web/Registro.jsp</file>
         </group>
     </open-files>

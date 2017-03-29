@@ -23,44 +23,50 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="text-center">Iniciar Sesión</h1>
+                <h1 class="text-center">Registrar Usuario</h1>
                 <hr>
             </div>
         </div>
-        
+        <form action="reg.jsp">
+                  
         <div class="row">
             <div class="col-sm-9">
                 <div class="row form-group">
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="Usuario" name="Usuario" placeholder="Usuario">
+                        <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario">
                     </div>
                 </div>
                 <div class="row form-group">
                     <div class="col-sm-6">
-                        <input type="password" class="form-control" id="Contraseña" name="Contraseña" placeholder="Contraseña">
+                        <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="contrasena">
                     </div>
                 </div>
                 <div class="row form-group">
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="Empresa" name="Empresa" placeholder="Empresa">
+                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre Completo">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="empresa" name="empresa" placeholder="Empresa">
                     </div>
                 </div>
                  <div class="row form-group">
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="Departamento" name="Departamento" placeholder="Departamento">
+                        <input type="text" class="form-control" id="departamento" name="departamento" placeholder="Departamento">
                     </div>
                 </div>
                 <div class="row form-group">
                     <div class="col-sm-6">
-                        <button class="btn btn-default btn-lg pull-left">Iniciar Sesión</button>
+                        <button class="btn btn-default btn-lg pull-left">Registrar</button>
                     </div>
                 </div>
             </div>
         </div>
         <br>
-        
-        <form action="Registro.jsp">
-        <button class="btn btn-default btn-lg pull-left">Registrar Usuario</button>
+        </form>
+        <form action="Inicial.jsp">
+        <button class="btn btn-default btn-lg pull-left">Regresar al menu principal</button>
         </form>
         
     </div>

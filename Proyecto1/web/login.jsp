@@ -1,14 +1,17 @@
+<%@page import = "Paquete.Conexion"  %>
 <%
-    String userid = request.getParameter("uname");    
-    String pwd = request.getParameter("pass");
-    Class.forName("com.mysql.jdbc.Driver");
-    
-    if (new Conexion.) {
-        session.setAttribute("userid", userid);
+    Conexion con = new Conexion();
+    String nickname = request.getParameter("usuario");
+    String contrasena = request.getParameter("contrasena");
+    String empresa = request.getParameter("empresa");
+    String departamento = request.getParameter("departamento");
+    if (con.logUsuario(nickname, contrasena, empresa, departamento)) {
+        session.setAttribute("nickname", nickname);
         //out.println("welcome " + userid);
         //out.println("<a href='logout.jsp'>Log out</a>");
-        response.sendRedirect("success.jsp");
+       response.sendRedirect("success.jsp");
+      
     } else {
-        out.println("Invalid password <a href='index.jsp'>try again</a>");
+        out.println("Contraseña incorrecta <a href='Inicial.jsp'> intentelo de nuevo</a>");
     }
 %>
