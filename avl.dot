@@ -1,0 +1,22 @@
+digraph AVL{ 
+node[shape=record]
+se[label="<f0>|<f1> se  |<f2>"]; 
+cuando[label="<f0>|<f1> cuando  |<f2>"]; 
+comida[label="<f0>|<f1> comida  |<f2>"]; 
+mano[label="<f0>|<f1> mano  |<f2>"]; 
+fads[label="<f0>|<f1> fads  |<f2>"]; 
+juan[label="<f0>|<f1> juan  |<f2>"]; 
+pollofrito[label="<f0>|<f1> pollofrito  |<f2>"]; 
+rdfasd[label="<f0>|<f1> rdfasd  |<f2>"]; 
+vato[label="<f0>|<f1> vato  |<f2>"]; 
+tacos[label="<f0>|<f1> tacos  |<f2>"]; 
+se:f0->cuando 
+se:f2->vato
+cuando:f0->comida 
+cuando:f2->mano
+mano:f0->fads 
+mano:f2->pollofrito
+fads:f2->juan
+pollofrito:f2->rdfasd
+vato:f0->tacos 
+} 

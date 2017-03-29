@@ -1,18 +1,20 @@
-import commands
+#import commands
 import aravl
 from flask import Flask, request, Response
+app = Flask("Proyecto1")
 class nododisperso(object):
     """docstring for nododisperso; nodo de la matriz"""
-    def __init__(self, x,y,dato):
+    def __init__(self, x,y,nombre, nombreusuario, contrasena):
         self.x = x
         self.y = y
-        self.dato = dato
+        self.nombre = nombre
+        self.nombreusuario = nombreusuario
+        self.contrasena = contrasena
         self.siguiente = None
         self.anterior = None
         self.arriba= None
         self.abajo = None
         self.arbol = aravl.avl()
-
 
 class listaHo(object):
     """Lista horizontal donde van insertados los nodos de la matriz dispersa"""
@@ -259,7 +261,7 @@ class listay():
 
         temporal = self.primero
         while temporal != None:
-            print temporal.y
+            print (temporal.y)
             temporal = temporal.abajo
 
     def existe(self,y):
@@ -286,7 +288,7 @@ class matriz(object):
         self.ladox= listax()
         self.ladoy= listay()
 
-    def verificar(self, x, y):
+    def verificar(self, x, y): #verifica si existe un nodo en la matriz
         nodoyy = self.ladoy.primero
 
         while nodoyy != None:
@@ -300,10 +302,9 @@ class matriz(object):
 
             nodoyy = nodoyy.abajo
 
-
         return None
 
-    def insertar(self,x,y,dato):
+    def insertar(self,x,y,nombre, nombreusuario, contrasena):
 
        #si existe no deberia de insertar nada
         if self.verificar(x,y) == None:
@@ -320,25 +321,22 @@ class matriz(object):
             temx = self.ladox.existe(x)
             temy = self.ladoy.existe(y)
 
-            elemento = nododisperso(x,y,dato)
+            elemento = nododisperso(x,y,nombre, nombreusuario, contrasena)
+
 
             temx.listav.insertar(elemento)
             temy.listah.insertar(elemento)
+
             return elemento
 
-    def recorrer(self):
-
+    def recorrer(self): #recorre la matriz -->>>>>>>>>>>>>>ESTEEE RECORRE LA MATRIZ
         temp= self.ladoy.primero
-
         while temp != None :
-
-
             temp2= temp.listah.primero
             while temp2!= None:
-                print temp2.dato
-                print temp2.x
+                print (temp2.nombre)
+                print (temp2.x)
                 temp2 = temp2.siguiente
-
 
             temp=temp.abajo
 
@@ -374,7 +372,7 @@ class matriz(object):
             nodoaux = temporaly.listah.primero #graficar los nodos de las listas
 
             while  nodoaux != None:
-                archi.write('noded'+str(nodoaux.x)+'g'+str(nodoaux.y)+str(nodoaux.dato)+ '[label= "' +str(nodoaux.dato)+ '"]; \n')
+                archi.write('noded'+str(nodoaux.x)+'g'+str(nodoaux.y)+str(nodoaux.nombre)+ '[label= "' +str(nodoaux.nombre)+ '"]; \n')
                 nodoaux = nodoaux.siguiente
 
 
@@ -431,7 +429,7 @@ class matriz(object):
 
             while nauxiar != None:
 
-                archi.write('->noded'+str(nauxiar.x)+'g'+str(nauxiar.y)+str(nauxiar.dato))
+                archi.write('->noded'+str(nauxiar.x)+'g'+str(nauxiar.y)+str(nauxiar.nombre))
                 nauxiar= nauxiar.abajo
 
             archi.write('[dir="both"];\n')
@@ -441,13 +439,14 @@ class matriz(object):
         #enlazeinternos de y-----------------------------------------------------
 
 
+
         temporaly= self.ladoy.primero
         while temporaly != None:
             if temporaly.listah.primero != None and temporaly != None :
 
                 xi= temporaly.listah.primero.x
                 yi =temporaly.listah.primero.y
-                info = temporaly.listah.primero.dato
+                info = temporaly.listah.primero.nombre
 
 
                 archi.write('nodey'+str(temporaly.y)+'->noded'+str(xi)+'g'+str(yi)+ str (info)+'[constraint=false]; \n')
@@ -458,9 +457,11 @@ class matriz(object):
             while nodoaux != None:
                 if nodoaux.siguiente != None :
 
-                    archi.write('noded'+ str(nodoaux.x)+'g'+str(nodoaux.y) + str(nodoaux.dato)+'->noded'+str(nodoaux.siguiente.x) + 'g'+str(nodoaux.siguiente.y)+ str(nodoaux.siguiente.dato)+str(1)+'[constraint=false,dir="both"];')
+                    archi.write('noded'+ str(nodoaux.x)+'g'+str(nodoaux.y) + str(nodoaux.nombre)+'->noded'+str(nodoaux.siguiente.x) + 'g'+str(nodoaux.siguiente.y)+ str(nodoaux.siguiente.nombre)+str(1)+'[constraint=false,dir="both"];')
 
                 nodoaux = nodoaux.siguiente
+
+
 
             temporaly = temporaly.abajo
 
@@ -473,115 +474,119 @@ class matriz(object):
         commands.getoutput('dot -Tpng matri.dot -o matri.png')
         commands.getoutput('xdg-open matri.png')
 
+    def buscarpornombre(self, nombreusuario): #busca los usuarios por su nombre
+        nodoyy = self.ladoy.primero
 
-      def buscarpornombre(self, nombreusuario): #busca los usuarios por su nombre
-          nodoyy = self.ladoy.primero
+        while nodoyy != None:
+            temporal = nodoyy.listah.primero
 
-          while nodoyy != None:
-              temporal = nodoyy.listah.primero
+            while temporal != None:
+                if temporal.nombreusuario == nombreusuario:
+                    return temporal
 
-              while temporal != None:
-                  if temporal.nombreusuario == nombreusuario:
-                      return temporal
-                  else:
-                      return None
-                  temporal = temporal.siguiente
+                temporal = temporal.siguiente
 
-              nodoyy = nodoyy.abajo
+            nodoyy = nodoyy.abajo
 
-      def insertaractivos(self, nombreusuario, idactivo, nombreactivo, descripactivo): #insertar los activos en el avl
+    def insertaractivos(self, nombreusuario, idactivo, nombreactivo, descripactivo): #insertar los activos en el avl
 
-         nodo = self.buscarpornombre (nombreusuario)
-         if nodo!= None:
-             nodo.arbol.insertar(idactivo, nombreusuario, descripactivo)
-             #nodo.arbol.graficar()
+        nodo = self.buscarpornombre (nombreusuario)
+        if nodo!= None:
+            nodo.arbol.insertar(idactivo, nombreusuario, descripactivo)
+            #nodo.arbol.graficar()
 
-     def eliminaractivo(self, nombreusuario, idactivo): #elimina los activos del avl
-         nodo = self.buscarpornombre(nombreusuario)
-         if nodo!= None:
-             nodo.arbol.eliminar(idactivo)
+    def eliminaractivo(self, nombreusuario, idactivo): #elimina los activos del avl
+        nodo = self.buscarpornombre(nombreusuario)
+        if nodo!= None:
+            nodo.arbol.eliminar(idactivo)
 
-             nodo.arbol.graficar()
+            nodo.arbol.graficar()
 
-     def modificaractivo(self, nombreusuario, idactivo, nuevadescripcion): #modifica la descripcion de los activos del avl
-         nodo = self.buscarpornombre(nombreusuario)
-         if nodo!= None:
-             activo = nodo.arbol.obtener(nodo.arbol.raiz,idactivo)
+    def modificaractivo(self, nombreusuario, idactivo, nuevadescripcion): #modifica la descripcion de los activos del avl
+        nodo = self.buscarpornombre(nombreusuario)
+        if nodo!= None:
+            activo = nodo.arbol.obtener(nodo.arbol.raiz,idactivo)
 
-             if activo != None:
-                 activo.descripcion = nuevadescripcion
+            if activo != None:
+                activo.descripcion = nuevadescripcion
 
-         nodo.arbol.graficar()
+        nodo.arbol.graficar()
 
-     def obtenerdatosdellog(self): #obtiene los datos para el inicio de secion
+    def obtenerdatosdellog(self): #obtiene los datos para el inicio de secion
 
-         nodoyy = self.ladoy.primero
-         superstring=str('')
+        nodoyy = self.ladoy.primero
+        superstring=str('')
 
-          while nodoyy != None:
-              temporal = nodoyy.listah.primero
+        while nodoyy != None:
+            temporal = nodoyy.listah.primero
 
-              while temporal != None:
+            while temporal != None:
 
-                  superstring=str(superstring)+str(temporal.nombreusuario)+','+str(temporal.contrasena)+','+str(temporal.x)+','+str(temporal.y)+','
-                  temporal = temporal.siguiente
+                superstring=str(superstring)+str(temporal.nombreusuario)+','+str(temporal.contrasena)+','+str(temporal.x)+','+str(temporal.y)+','
+                temporal = temporal.siguiente
 
-              nodoyy = nodoyy.abajo
+            nodoyy = nodoyy.abajo
 
 
-          return str(superstring.rstrip(','))
 
-         #x es el las empresas
-         #y los departamentos
+        return str(superstring.rstrip(','))
 
-     def verificarlog(self, usuario, contrasena, empresa , departamentos): #verifica si el log es correcto
 
-         nodo = self.buscarpornombre(usuario) #si existe el nodo con ese id verifico los demas datos
-         if nodo!= None:
-             if nodo.contrasena== contrasena and nodo.x == empresa and nodo.y== departamentos:
-                 return 'true'
 
-         return 'false'
+        #x es el las empresas
+        #y los departamentos
+
+    def verificarlog(self, usuario, contrasena, empresa , departamentos): #verifica si el log es correcto
+
+        nodo = self.buscarpornombre(usuario) #si existe el nodo con ese id verifico los demas datos
+        if nodo!= None:
+            if nodo.contrasena== contrasena and nodo.x == empresa and nodo.y== departamentos:
+                return 'true'
+
+        return 'false'
+
 
 
 mat = matriz()
-mat.insertar(1,21,"dato1")
-mat.insertar(88,32,"dato2")
-mat.insertar(5,11,"dato3")
-mat.insertar(9,5,"dato4")
-arbol = aravl.avl()
-arbol.insertar('se')
-arbol.insertar('vato')
-arbol.insertar('cuando')
-arbol.insertar('mano')
-arbol.insertar('comida')
-arbol.insertar('pollofrito')
-arbol.insertar('fads')
-arbol.insertar('rdfasd')
-arbol.insertar('juan')
-arbol.insertar('tacos')
-arbol.preorden(arbol.raiz)
-arbol.graficar()
+#x,y, nombre, nombreusuario, contrasena
+mat.insertar('conta','meso',"dato1", "queso", "2")
+mat.insertar('telefono','banrural','nombre','id','20')
+mat.insertar('banco','claro',"dato4","queso","3")
 
-mat.recorrer()
+mat.insertaractivos('queso',"nuebo",'nombre', 'descripcion1')
+mat.insertaractivos('queso',"maje",'nombre', 'descripcion2')
+mat.insertaractivos('queso',"orga",'nombre', 'descripcion3')
+mat.insertaractivos('queso',"lala",'nombre', 'descripcion4')
+mat.insertaractivos('queso',"lalao",'nombre', 'descripcion5')
+mat.insertaractivos('queso',"lalai",'nombre', 'descripcion6')
+mat.insertaractivos('queso',"lalaf",'nombre', 'descripcion7')
+
+mat.insertaractivos('queso',"orga1",'nombre', 'descripcion8')
+mat.insertaractivos('queso',"orga10",'nombre', 'descripcion9')
+mat.insertaractivos('queso',"orga3",'nombre', 'descripcion10')
+mat.modificaractivo('queso','orga','esta es una nueva describcion')
 mat.graficar()
+
+#print str(mat.verificarlog('queso','3','banco','claro'))
 
 @app.route('/usuario/login',methods=['POST']) #Metodo para login o registrar usuario
 def iniciar():
     nickname = str(request.form['nickname'])
     contrasena = str(request.form['contrasena'])
-    nombre = str(request.form['nombre']
-    empresa str(request.form['empresa'])
+    nombre = str(request.form['nombre'])
+    empresa = str(request.form['empresa'])
     departamento = str(request.form['departamento'])
     operacion = str(request.form['operacion'])
-
     if(operacion=="crear"):
         mat.insertar(empresa,departamento,nombre,nickname,contrasena)
+        print("usuario creado")
         return "usuario creado"
     else:
         if(mat.obtenerdatosdellog(nickname,contrasena, empresa, departamento)):
+            print("else1")
             return "login correcto"
         else:
+            print("else2")
             return "datos invalidos"
 
 @app.route('/usuario/operaciones/aniadir',methods=['POST']) #Metodo para añadir activos
@@ -605,3 +610,6 @@ def activos():
     cadena = obj.arbol.preorden
     return cadena
     #operacion = str(request.form['operacion'])
+
+if __name__ == "__main__":
+  app.run(debug=True, host='0.0.0.0')

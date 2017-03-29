@@ -1,4 +1,4 @@
-import commands
+#import commands
 
 class hoja(object):
 	"""docstring for hoja del arbol avl"""
@@ -21,7 +21,7 @@ class rotaciones (object):
 		n.derecha = n1.izquierda
 		n1.izquierda = n
 		n = n1
-		print 'rotacion dereecha derecha'
+		print ('rotacion dereecha derecha')
 		return n
 
 	def izqizq(self, n, n1):
@@ -29,7 +29,7 @@ class rotaciones (object):
 		n.izquierda = n1.derecha
 		n1.derecha = n
 		n = n1
-		print 'rotacion iz iz'
+		print ('rotacion iz iz')
 		return n
 
 	def rderizq(self, n, n1):
@@ -40,7 +40,7 @@ class rotaciones (object):
 		n1.izquierda = n2.derecha
 		n2.derecha = n1
 		n = n2
-		print 'rotacion dereecha izquierda'
+		print ('rotacion dereecha izquierda')
 		return n
 
 	def rizqder(self, n, n1):
@@ -54,7 +54,7 @@ class rotaciones (object):
 		n1.derecha = n2.izquierda
 		n2.izquierda = n1
 		n = n2
-		print 'rotacion iz derecha'
+		print ('rotacion iz derecha')
 		return n
 
 
@@ -75,14 +75,14 @@ class rotaciones (object):
 			tamder = self.altura (raiz.derecha)
 			tamizq = self.altura (raiz.izquierda)
 			fe = int(tamder)- int (tamizq)
-			print str (fe)
+			print(str(fe))
 
 			if int(fe)>(1) or int(fe)<int(-1):
 
 				#aca se verifica si se perdio el quilibrio y se empiezan hacer las respectivas rotaciones segun los algoritmos
 
 				if int(fe)> int(1):
-					print 'entre2'
+					print ('entre2')
 					td = self.altura(raiz.derecha.derecha)
 					ti = self.altura (raiz.derecha.izquierda)
 					f = int(td) - int(ti) #se calculan si los hijos estan en desequilibrio
@@ -96,7 +96,7 @@ class rotaciones (object):
 						raiz = self.rderizq( raiz, raiz.derecha)
 
 				elif int (fe) < int (-1):
-					print 'entre2'
+					print ('entre2')
 
 					td = self.altura( raiz.izquierda.derecha)
 					ti = self.altura (raiz.izquierda.izquierda)
@@ -138,7 +138,8 @@ class avl(object):
 	def preorden(self,raiz):
 
 		if raiz != None:
-			print str(raiz.idd)
+			print(str(raiz.idd))
+			a = ''
 			a = a + raiz.idd
 			self.preorden(raiz.izquierda)
 			self.preorden(raiz.derecha)
@@ -204,8 +205,8 @@ class avl(object):
 		archi.write('} \n')
 		archi.close()
 
-		commands.getoutput('dot -Tpng avl.dot -o avl.png')
-		commands.getoutput('xdg-open avl.png')
+		#commands.getoutput('dot -Tpng avl.dot -o avl.png')
+		#commands.getoutput('xdg-open avl.png')
 
 	def ghojas(self, archi, raiz):
 		if raiz != None:

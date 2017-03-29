@@ -1,4 +1,4 @@
-import commands
+#import commands
 import aravl
 from flask import Flask, request, Response
 app = Flask("Proyecto1")
@@ -261,7 +261,7 @@ class listay():
 
         temporal = self.primero
         while temporal != None:
-            print temporal.y
+            print (temporal.y)
             temporal = temporal.abajo
 
     def existe(self,y):
@@ -334,8 +334,8 @@ class matriz(object):
         while temp != None :
             temp2= temp.listah.primero
             while temp2!= None:
-                print temp2.nombre
-                print temp2.x
+                print (temp2.nombre)
+                print (temp2.x)
                 temp2 = temp2.siguiente
 
             temp=temp.abajo
@@ -471,8 +471,8 @@ class matriz(object):
 
         archi.close()
         print("gmatri")
-        commands.getoutput('dot -Tpng matri.dot -o matri.png')
-        commands.getoutput('xdg-open matri.png')
+        #commands.getoutput('dot -Tpng matri.dot -o matri.png')
+        #commands.getoutput('xdg-open matri.png')
 
     def buscarpornombre(self, nombreusuario): #busca los usuarios por su nombre
         nodoyy = self.ladoy.primero
@@ -567,43 +567,49 @@ mat.insertaractivos('queso',"orga3",'nombre', 'descripcion10')
 mat.modificaractivo('queso','orga','esta es una nueva describcion')
 mat.graficar()
 
-print str(mat.verificarlog('queso','3','banco','claro'))
+print(str(mat.verificarlog('queso','3','banco','claro')))
 
-@app.route('/usuario',methods=['POST'])
+@app.route('/usuario/login',methods=['POST']) #Metodo para login o registrar usuario
 def iniciar():
     nickname = str(request.form['nickname'])
     contrasena = str(request.form['contrasena'])
-    nombre = str(request.form['nombre']
-    empresa str(request.form['empresa'])
+    nombre = str(request.form['nombre'])
+    empresa = str(request.form['empresa'])
     departamento = str(request.form['departamento'])
     operacion = str(request.form['operacion'])
-
     if(operacion=="crear"):
         mat.insertar(empresa,departamento,nombre,nickname,contrasena)
+        print("usuario creado")
         return "usuario creado"
     else:
         if(mat.obtenerdatosdellog(nickname,contrasena, empresa, departamento)):
+            print("else1")
             return "login correcto"
         else:
+            print("else2")
             return "datos invalidos"
-
-@app.route('/usuario/operaciones/añadir',methods=['POST'])
+    
+@app.route('/usuario/operaciones/aniadir',methods=['POST']) #Metodo para añadir activos
 def aniadir():
     usuario = str.request.form['nickname']
     nombreactivo = str.request.form['nombreactivo']
-    operacion = str(request.form['operacion'])
+    #operacion = str(request.form['operacion'])
     mat.insertaractivos(usuario, idactivo, nombre, descripcion)
 
-@app.route('/usuario/operaciones/eliminar',methods=['POST'])
+@app.route('/usuario/operaciones/eliminar',methods=['POST']) #Metodo para eliminar activos
 def eliminar():
     usuario = str.request.form['nickname']
     idactivo = str.request.form['idactivo']
-    operacion = str(request.form['operacion'])
+    #operacion = str(request.form['operacion'])
     mat.eliminaractivo(nombre, idactivo)
 
-@app.route('/usuario/operaciones/activos',methods=['POST'])
+@app.route('/usuario/operaciones/activos',methods=['POST']) #Metodo para obtener los activos a mostrar en el combobox
 def activos():
     usuario = str.request.form['nickname']
-    nombreactivo = str.request.form['nombreactivo']
-    operacion = str(request.form['operacion'])
-    mat.insertaractivos(usuario, idactivo, nombre, descripcion)
+    obj = mat.buscarpornombre(usuario)
+    cadena = obj.arbol.preorden
+    return cadena
+    #operacion = str(request.form['operacion'])
+
+if __name__ == "__main__":
+  app.run(debug=True, host='0.0.0.0')
